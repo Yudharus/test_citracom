@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./test.db"
+}
+
+model produk {
+  id         Int     @id @default(autoincrement())
+  nama       String
+  deskripsi  String
+  harga      Int
+  stok       Int
+  foto       String
+  suplier_id Int
+  suplier    suplier @relation(fields: [suplier_id], references: [id_suplier], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model suplier {
+  id_suplier   Int      @id @default(autoincrement())
+  nama_suplier String
+  alamat       String
+  email        String
+  produk       produk[]
+}
